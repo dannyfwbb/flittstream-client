@@ -126,7 +126,10 @@
       "identity/": true
     },
     "cSpell.words": [
-      "Flitt"
+      "Flitt",
+      "flittstream",
+      "primeicons",
+      "primeng"
     ]
   },
   "launch": {
