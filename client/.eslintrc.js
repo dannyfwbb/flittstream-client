@@ -116,7 +116,7 @@ module.exports = exports = {
           ERROR,
           {
             type: 'attribute',
-            prefix: ['app', 'ose'],
+            prefix: ['app', 'fsc'],
             style: 'camelCase'
           }
         ],
@@ -124,7 +124,7 @@ module.exports = exports = {
           ERROR,
           {
             type: 'element',
-            prefix: ['app', 'ose'],
+            prefix: ['app', 'fsc'],
             style: 'kebab-case'
           }
         ],

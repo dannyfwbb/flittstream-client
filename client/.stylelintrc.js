@@ -25,8 +25,8 @@ module.exports = exports = {
         ignore: ['attribute', 'class', 'id']
       }],
     'selector-type-no-unknown': [true, {
-        ignoreNamespaces: ['/^app-/', '/^ose-/', '/^mat-/'],
-        ignoreTypes: ['/^app-/', '/^ose-/', '/^mat-/']
+        ignoreNamespaces: ['/^app-/', '/^fsc-/', '/^mat-/'],
+        ignoreTypes: ['/^app-/', '/^fsc-/', '/^mat-/']
       }],
     'selector-pseudo-element-no-unknown': [true, {
         ignorePseudoElements: ['ng-deep']
