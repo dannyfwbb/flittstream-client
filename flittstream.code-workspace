@@ -129,7 +129,9 @@
       "Flitt",
       "flittstream",
       "primeicons",
-      "primeng"
+      "primeng",
+      "hudochenkov",
+      "stylelint"
     ]
   },
   "launch": {

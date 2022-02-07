@@ -1,0 +1,12 @@
+cert
+dist
+node_modules
+
+cspell.dict
+package-lock.json
+.eslintcache
+
+**/*.ts
+**/*.js
+**/*.component.html
+**/*.renderer.html
