@@ -124,7 +124,10 @@
       "**/Thumbs.db": true,
       "client/": true,
       "identity/": true
-    }
+    },
+    "cSpell.words": [
+      "Flitt"
+    ]
   },
   "launch": {
     "configurations": [
