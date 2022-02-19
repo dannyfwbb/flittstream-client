@@ -3,7 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AUTH_ROUTES } from './auth.routes';
+import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+
+
+const COMPONENTS = [
+  AuthComponent,
+  LoginComponent,
+  RegisterComponent,
+]
 
 @NgModule({
   imports: [
@@ -11,6 +20,6 @@ import { LoginComponent } from './components/login/login.component';
     CommonModule,
     RouterModule.forChild(AUTH_ROUTES),
   ],
-  declarations: [LoginComponent]
+  declarations: [...COMPONENTS]
 })
 export class AuthModule { }

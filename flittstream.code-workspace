@@ -126,11 +126,14 @@
       "identity/": true
     },
     "cSpell.words": [
+      "appconfig",
       "Flitt",
       "flittstream",
+      "hudochenkov",
+      "inputtext",
+      "primeflex",
       "primeicons",
       "primeng",
-      "hudochenkov",
       "stylelint"
     ]
   },
