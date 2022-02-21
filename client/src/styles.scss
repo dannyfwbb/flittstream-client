@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import '../node_modules/ngx-toasta/styles/style-material.css';
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.mat-menu-content {
+    padding: 0 !important;
+}
+
+#toasta.toasta-position-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+#toasta .toast-text .toast-msg {
+  max-width: 1000px;
+  max-height: 800px;
+  display: inline-block;
+  overflow: auto;
+}

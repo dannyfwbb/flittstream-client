@@ -1,22 +1,14 @@
 import { Routes } from '@angular/router';
-import { RouterComponent } from '../shared/components/router/router.component';
-import { AppContainerComponent } from './components/app-container/app-container.component';
-import { AuthGuard } from './guards/auth.guard';
+import { ExploreComponent } from './components/explore/explore.component';
+import { SearchComponent } from './components/search/search.component';
 
 export const CORE_ROUTES: Routes = [
   {
-    path: 'auth',
-    component: RouterComponent,
-    loadChildren: () => import('../auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
     path: '',
-    component: AppContainerComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    component: ExploreComponent,
   },
   {
-    path: '**',
-    redirectTo: '/',
-  },
+    path: 'search',
+    component: SearchComponent,
+  }
 ];

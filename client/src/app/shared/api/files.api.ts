@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiServiceBase } from '../bases/apiBase';
+import { ApiServiceBase } from '../bases/base.api';
 import { CustomHttpParams } from '../models/http/customHttpParams';
 import { ConfigurationService } from '../services/configuration.service';
 

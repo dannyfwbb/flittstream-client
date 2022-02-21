@@ -6,6 +6,15 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
   },
+  {
+    path: 'management',
+    loadChildren: () => import('./management/management.module').then((m) => m.ManagementModule),
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

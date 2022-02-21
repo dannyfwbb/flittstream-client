@@ -1,0 +1,96 @@
+<div class="sidebar-container">
+  <mat-nav-list>
+    <mat-list-item routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+      <mat-icon>library_music</mat-icon>
+      <div>Explore</div>
+    </mat-list-item>
+
+    <mat-list-item routerLink="/search" routerLinkActive="active-link">
+      <mat-icon>search</mat-icon>
+      <div>Search</div>
+    </mat-list-item>
+
+    <mat-list-item
+      routerLink="/for-you"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>favorite</mat-icon>
+      <div>For You</div>
+    </mat-list-item>
+
+    <h3 mat-subheader>Library</h3>
+
+    <mat-list-item
+      routerLink="/library/recently-added"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>calendar_today</mat-icon>
+      <div>Recently Added</div>
+    </mat-list-item>
+
+    <mat-list-item
+      routerLink="/library/artists"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>person</mat-icon>
+      <div>Artists</div>
+    </mat-list-item>
+
+    <mat-list-item
+      routerLink="/library/albums"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>album</mat-icon>
+      <div>Albums</div>
+    </mat-list-item>
+
+    <mat-list-item
+      routerLink="/library/songs"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>music_note</mat-icon>
+      <div>Songs</div>
+    </mat-list-item>
+
+    <h3 mat-subheader>Management</h3>
+
+    <mat-list-item
+      routerLink="/management/users"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>album</mat-icon>
+      <div>Users</div>
+    </mat-list-item>
+
+    <mat-list-item
+      routerLink="/management/roles"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [disableRipple]="!isAuthorized"
+      [ngClass]="isAuthorized ? '' : 'disabled'">
+      <mat-icon>music_note</mat-icon>
+      <div>Roles</div>
+    </mat-list-item>
+
+    <div class="authorize-button-container">
+      <button aria-label="Login" *ngIf="!isAuthorized" class="authorize-button" mat-raised-button (click)="login()">
+        Login
+      </button>
+      <button aria-label="Logout" *ngIf="isAuthorized" class="authorize-button" mat-raised-button (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </mat-nav-list>
+</div>

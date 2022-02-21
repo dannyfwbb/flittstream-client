@@ -1,75 +1,105 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { ConfigurationApiService } from '../api/configuration.api';
-import { DBKeys } from './db-keys';
-import { LocalStorageManager } from './local-storage-manager.service';
+import { Subject } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { DBkeys } from './db-keys';
+import { LocalStoreManager } from './local-store-manager.service';
+import { Utilities } from './utilities';
+
+interface UserConfiguration {
+  homeUrl: string;
+  themeId: number;
+}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ConfigurationService {
+
   constructor(
-    private localStorage: LocalStorageManager,
-    private configurationApi: ConfigurationApiService,
-  ) {
-    //
+    private localStorage: LocalStoreManager) {
+    this.loadLocalChanges();
   }
 
-  //#region defaults
-  static readonly defaultIsDemoMode = false;
-  //#endregion defaults
-
-  private appSettingsLoadedSubj$ = new BehaviorSubject<boolean>(false);
-  readonly appSettingsLoaded$ = this.appSettingsLoadedSubj$.asObservable();
-
-  private _isDemoMode = false;
-
-  private _settings: AppSettings;
-  get settings(): AppSettings {
-    return this._settings;
+  set themeId(value: number) {
+    this._themeId = value;
+    this.saveToLocalStore(value, DBkeys.THEME_ID);
+  }
+  get themeId() {
+    return this._themeId || ConfigurationService.defaultThemeId;
   }
 
-  get isDemoMode(): boolean {
-    return this._isDemoMode ?? ConfigurationService.defaultIsDemoMode;
+  set homeUrl(value: string) {
+    this._homeUrl = value;
+    this.saveToLocalStore(value, DBkeys.HOME_URL);
+  }
+  get homeUrl() {
+    return this._homeUrl || ConfigurationService.defaultHomeUrl;
   }
 
-  private onConfigurationImported$ = new Subject<boolean>();
+  public static readonly appVersion: string = '1.0.0';
+
+  public static readonly defaultHomeUrl: string = '/';
+  public static readonly defaultThemeId: number = 1;
+
+  public baseUrl = environment.baseUrl || Utilities.baseUrl();
+  public tokenUrl = environment.tokenUrl || environment.baseUrl || Utilities.baseUrl();
+  public loginUrl = environment.loginUrl;
+  public googleClientId = environment.googleClientId;
+  public facebookClientId = environment.facebookClientId;
+  public fallbackBaseUrl = '';
+
+  private _homeUrl: string = null;
+  private _themeId: number = null;
+  private onConfigurationImported$: Subject<boolean> = new Subject<boolean>();
 
   configurationImported$ = this.onConfigurationImported$.asObservable();
 
-  loadAppConfig(): Promise<unknown> {
-    return new Promise<void>((resolve, reject) => {
-      if (this._settings != null) {
-        resolve();
+  private loadLocalChanges(): void {
+    if (this.localStorage.exists(DBkeys.THEME_ID)) {
+      this._themeId = this.localStorage.getDataObject<number>(DBkeys.THEME_ID);
+    }
+
+    if (this.localStorage.exists(DBkeys.HOME_URL)) {
+      this._homeUrl = this.localStorage.getDataObject<string>(DBkeys.HOME_URL);
+    }
+  }
+
+  private saveToLocalStore(data: unknown, key: string): void {
+    setTimeout(() => this.localStorage.savePermanentData(data, key));
+  }
+
+  public import(jsonValue: string): void {
+    this.clearLocalChanges();
+
+    if (jsonValue) {
+      const importValue: UserConfiguration = Utilities.JsonTryParse(jsonValue);
+
+      if (importValue.themeId != null) {
+        this.themeId = importValue.themeId;
       }
 
-      this.configurationApi.get<AppSettings>('/assets/appconfig.json')
-        .subscribe({
-          next: (response) => {
-            this._settings = response;
-            resolve();
-            this.appSettingsLoadedSubj$.next(true);
-          },
-          error: (response: HttpErrorResponse) => {
-            reject(`Can't load config: ${response.message} (${JSON.stringify(response.error)})`)
-          }
-        });
-    });
+      if (importValue.homeUrl != null) {
+        this.homeUrl = importValue.homeUrl;
+      }
+    }
+
+    this.onConfigurationImported$.next(true);
   }
 
-  clearLocalChanges(): void {
-    this.localStorage.deleteData(DBKeys.CURRENT_USER);
-  }
-}
+  public export(changesOnly = true): string {
+    const exportValue: UserConfiguration = {
+      themeId: changesOnly ? this._themeId : this.themeId,
+      homeUrl: changesOnly ? this._homeUrl : this.homeUrl,
+    };
 
-export interface AppSettings {
-  domain: string;
-  op: {
-    url: string;
-    clientId: string;
-  };
-  api: {
-    url: string;
-  };
+    return JSON.stringify(exportValue);
+  }
+
+  public clearLocalChanges(): void {
+    this._themeId = null;
+    this._homeUrl = null;
+
+    this.localStorage.deleteData(DBkeys.THEME_ID);
+    this.localStorage.deleteData(DBkeys.HOME_URL);
+  }
 }

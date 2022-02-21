@@ -127,14 +127,23 @@
     },
     "cSpell.words": [
       "appconfig",
+      "confirmemail",
+      "DBKEY",
       "Flitt",
       "flittstream",
+      "haspassword",
       "hudochenkov",
       "inputtext",
+      "oidc",
       "primeflex",
       "primeicons",
       "primeng",
-      "stylelint"
+      "recoverpassword",
+      "sendconfirmemail",
+      "sidenav",
+      "stylelint",
+      "Toasta",
+      "userid"
     ]
   },
   "launch": {

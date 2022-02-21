@@ -1,3 +1,17 @@
+.outer-container {
+  height: 100%;
+  background: black;
+}
+
+.mat-sidenav {
+  background: black;
+  border: none;
+}
+
+.content {
+  background-image: linear-gradient(rgb(30, 50, 100), rgb(4, 6, 12) 130%);
+}
+
 /* stylelint-disable property-no-vendor-prefix, at-rule-no-vendor-prefix */
 .pre-bootstrap {
   position: fixed;
