@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiBaseService } from '../../shared/api/base.api';
-import { ConfigurationService } from '../../shared/services/configuration.service';
+import { ApiBaseService } from '../shared/api/base.api';
+import { ConfigurationService } from '../shared/services/configuration.service';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +58,8 @@ export class AccountApiService extends ApiBaseService {
     return this.http.get<T>(endpointUrl);
   }
 
-  getUsersEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
-    const endpointUrl = page && pageSize ? `${this.usersUrl}/${page}/${pageSize}` : this.usersUrl;
+  getUsersEndpoint<T>(count?: number, skipCount?: number): Observable<T> {
+    const endpointUrl = `${this.usersUrl}/${count}/${skipCount}`;
     return this.http.get<T>(endpointUrl);
   }
 

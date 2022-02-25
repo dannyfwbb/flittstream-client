@@ -1,8 +1,10 @@
-import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastaConfig } from 'ngx-toasta';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { LocalStoreManager } from './shared/services/local-store-manager.service';
 
@@ -16,7 +18,7 @@ export class AppComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
 
-  opened = false;
+  opened = true;
   mode: MatDrawerMode = 'side';
   isMobile = false;
 
@@ -27,33 +29,20 @@ export class AppComponent implements OnDestroy {
     public dialog: MatDialog,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    breakpointObserver: BreakpointObserver
+    private toastaConfig: ToastaConfig,
+    private spinnerService: NgxSpinnerService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
+    this.toastaConfig.theme = 'material';
+    this.toastaConfig.position = 'top-right';
+    this.toastaConfig.limit = 100;
+    this.toastaConfig.showClose = true;
+    this.toastaConfig.showDuration = false;
+
     storageManager.initializeStorageSyncListener();
-
-    breakpointObserver.observe([
-      Breakpoints.Handset
-    ]).subscribe((result) => {
-      if (result.matches) {
-        this.opened = false;
-        this.mode = 'over';
-        this.isMobile = true;
-      } else {
-        this.opened = true;
-        this.mode = 'side';
-        this.isMobile = false;
-      }
-    });
-
-    router.events.subscribe((event) => {
-      if ( this.isMobile ) {
-        this.opened = false;
-      }
-    });
   }
 
   ngOnDestroy(): void {

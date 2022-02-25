@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AccessToken, LoginResponse } from '../../shared/models/user/login-response.model';
-import { PermissionValues } from '../../shared/models/user/permission.model';
-import { ConfigurationService } from '../../shared/services/configuration.service';
-import { DBkeys } from '../../shared/services/db-keys';
-import { JwtHelper } from '../../shared/services/jwt-helper';
-import { LocalStoreManager } from '../../shared/services/local-store-manager.service';
-import { OidcHelperService } from '../../shared/services/oidc-helper.service';
-import { Utilities } from '../../shared/services/utilities';
-import { UserLogin } from '../models/user-login.model';
-import { User } from '../models/user.model';
+import { AccessToken, LoginResponse } from '../shared/models/user/login-response.model';
+import { PermissionValues } from '../shared/models/user/permission.model';
+import { UserLogin } from '../shared/models/user/user-login.model';
+import { User } from '../shared/models/user/user.model';
+import { ConfigurationService } from '../shared/services/configuration.service';
+import { DBkeys } from '../shared/services/db-keys';
+import { JwtHelper } from '../shared/services/jwt-helper';
+import { LocalStoreManager } from '../shared/services/local-store-manager.service';
+import { OidcHelperService } from '../shared/services/oidc-helper.service';
+import { Utilities } from '../shared/services/utilities';
 
 @Injectable({
   providedIn: 'root'

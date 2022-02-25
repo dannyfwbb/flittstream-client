@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { Permission, PermissionValues } from '../../shared/models/user/permission.model';
-import { AccountApiService } from '../api/account.api';
-import { Role } from '../models/role.model';
-import { UserEdit } from '../models/user-edit.model';
-import { User } from '../models/user.model';
-import { AuthService } from './auth.service';
+import { Role } from '../../shared/models/user/role.model';
+import { UserEdit } from '../../shared/models/user/user-edit.model';
+import { User } from '../../shared/models/user/user.model';
+import { AccountApiService } from '../../_api/account.api';
+import { AuthService } from '../../_services/auth.service';
 
 
 export type RolesChangedOperation = 'add' | 'delete' | 'modify';
@@ -15,7 +15,7 @@ export interface RolesChangedEventArg { roles: Role[] | string[]; operation: Rol
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class UsersService {
   public static readonly roleAddedOperation: RolesChangedOperation = 'add';
   public static readonly roleDeletedOperation: RolesChangedOperation = 'delete';
   public static readonly roleModifiedOperation: RolesChangedOperation = 'modify';
@@ -41,8 +41,8 @@ export class AccountService {
     return forkJoin([this.api.getUserEndpoint<User>(userId), this.api.getRolesEndpoint<Role[]>()]);
   }
 
-  getUsers(page?: number, pageSize?: number) {
-    return this.api.getUsersEndpoint<User[]>(page, pageSize);
+  getUsers(count?: number, skipCount?: number) {
+    return this.api.getUsersEndpoint<User[]>(count, skipCount);
   }
 
   getUsersAndRoles(page?: number, pageSize?: number) {
@@ -120,26 +120,26 @@ export class AccountService {
   updateRole(role: Role) {
     if (role.id) {
       return this.api.getUpdateRoleEndpoint(role, role.id).pipe(
-        tap((_data) => this.onRolesChanged([role], AccountService.roleModifiedOperation)));
+        tap((_data) => this.onRolesChanged([role], UsersService.roleModifiedOperation)));
     } else {
       return this.api.getRoleByRoleNameEndpoint<Role>(role.name).pipe(
         mergeMap((foundRole) => {
           role.id = foundRole.id;
           return this.api.getUpdateRoleEndpoint(role, role.id);
         }),
-        tap((_data) => this.onRolesChanged([role], AccountService.roleModifiedOperation)));
+        tap((_data) => this.onRolesChanged([role], UsersService.roleModifiedOperation)));
     }
   }
 
   newRole(role: Role) {
     return this.api.getNewRoleEndpoint<Role>(role).pipe<Role>(
-      tap((_data) => this.onRolesChanged([role], AccountService.roleAddedOperation)));
+      tap((_data) => this.onRolesChanged([role], UsersService.roleAddedOperation)));
   }
 
   deleteRole(roleOrRoleId: string | Role): Observable<Role> {
     if (typeof roleOrRoleId === 'string' || roleOrRoleId instanceof String) {
       return this.api.getDeleteRoleEndpoint<Role>(roleOrRoleId as string).pipe<Role>(
-        tap((data) => this.onRolesChanged([data], AccountService.roleDeletedOperation)));
+        tap((data) => this.onRolesChanged([data], UsersService.roleDeletedOperation)));
     } else if (roleOrRoleId.id) {
       return this.deleteRole(roleOrRoleId.id);
     } else {
@@ -157,7 +157,7 @@ export class AccountService {
   }
 
   onRolesUserCountChanged(roles: Role[] | string[]) {
-    return this.onRolesChanged(roles, AccountService.roleModifiedOperation);
+    return this.onRolesChanged(roles, UsersService.roleModifiedOperation);
   }
 
   getRolesChangedEvent(): Observable<RolesChangedEventArg> {

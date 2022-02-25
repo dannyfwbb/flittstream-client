@@ -1,14 +1,23 @@
-<mat-sidenav-container
-  [style.height]="isMobile ? 'calc( 100% - 156px )' : ''"
-  [style.margin-top]="isMobile ? '56px' : ''"
-  class="outer-container mat-typography">
-  <mat-sidenav [mode]="mode" [(opened)]="opened">
+<!--<div class="container">
+  <div class="app-content">
+    <div class="side-menu">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="content">
+      <router-outlet #mainOutlet="outlet"></router-outlet>
+    </div>
+  </div>
+</div>-->
+<div class="wrapper">
+  <div class="sidebar">
     <app-sidebar></app-sidebar>
-  </mat-sidenav>
-  <mat-sidenav-content class="content">
-    <router-outlet #mainOutlet="outlet"></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+  <div class="main-panel">
+      <div class="content">
+        <router-outlet #mainOutlet="outlet"></router-outlet>
+      </div>
+  </div>
+</div>
 
 <div [hidden]="mainOutlet.isActivated">
   <div class="pre-bootstrap">

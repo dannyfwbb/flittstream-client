@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { catchError, filter, mergeMap, switchMap, take } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshingLogin: boolean;
@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = req;
 
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn && !authReq.url.includes('connect/token')) {
       authReq = this.addTokenHeader(req)
     }
 
@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((refreshLoginError) => {
           this.isRefreshingLogin = false;
-          this.authService.reLogin();
+          //this.authService.logout();
 
           if (refreshLoginError.status == 401 || (refreshLoginError.error && refreshLoginError.error.error == 'invalid_grant')) {
             return throwError(() => new Error('session expired'));

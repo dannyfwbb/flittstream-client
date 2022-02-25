@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../shared/bases/base.component';
+import { UserLogin } from '../../../shared/models/user/user-login.model';
 import { AlertService, MessageSeverity } from '../../../shared/services/alert.service';
 import { Utilities } from '../../../shared/services/utilities';
-import { UserLogin } from '../../models/user-login.model';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-login-control',

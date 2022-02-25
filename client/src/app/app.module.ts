@@ -1,35 +1,32 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastaModule } from 'ngx-toasta';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { appProviders } from './app.providers';
+import { SharedModule } from './shared/shared.module';
+import { FooterComponent } from './_components/footer/footer.component';
+import { NavbarComponent } from './_components/navbar/navbar.component';
 import { SidebarComponent } from './_components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
   ],
   imports: [
-    MatDialogModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatButtonModule,
+    SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    MatSidenavModule,
+    NgxSpinnerModule,
     OAuthModule.forRoot(),
     ToastaModule.forRoot(),
   ],

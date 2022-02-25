@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { LoginDialogComponent } from '../../core/components/login/login-dialog.component';
-import { AuthService } from '../../core/services/auth.service';
 import { BaseComponent } from '../../shared/bases/base.component';
+import { AuthService } from '../../_services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,6 +30,10 @@ export class SidebarComponent extends BaseComponent {
         //
       },
     });
+  }
+
+  refresh(): void {
+    this.authService.refreshLogin();
   }
 
   logout(): void {

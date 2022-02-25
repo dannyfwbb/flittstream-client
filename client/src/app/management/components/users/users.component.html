@@ -1,3 +1,116 @@
-<p>
-  users works!
-</p>
+<div class="users">
+  <div class="header">
+    <fsc-page-header [title]="'USERS MANAGEMENT'"></fsc-page-header>
+  </div>
+  <div class="table" [busyIf]="tableHelper.isLoading">
+    <div class="toolbar-container">
+      <p-toolbar class="px-2">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
+        </ng-template>
+
+        <!-- <ng-template pTemplate="right">
+          <div class="flex">
+            <span class="p-input-icon-left mr-4">
+              <i class="pi pi-search"></i>
+              <input class="p-inputtext-sm" pInputText type="text" (input)="filter($event)" placeholder="Search keyword" />
+            </span>
+          </div>
+          <button pButton pRipple label="Export" icon="pi pi-download" class="p-button-help"></button>
+        </ng-template> -->
+      </p-toolbar>
+    </div>
+    <div class="table-container">
+      <p-table #datatable [value]="tableHelper.records" [paginator]="false" dataKey="id" [scrollable]="true"
+               scrollHeight="calc(100vh - 300px)" styleClass="p-datatable-gridlines" scrollDirection="both"
+               [responsive]="tableHelper.isResponsive" [resizableColumns]="tableHelper.resizableColumns" (onLazyLoad)="getUsers($event)"
+               [lazy]="true" [rows]="tableHelper.defaultRecordsCountPerPage">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pResizableColumn>
+              <div>
+                Actions
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Username
+                <!-- <p-columnFilter type="text" field="username" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Roles
+                <!-- <p-columnFilter type="text" field="roles" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Email
+                <!-- <p-columnFilter type="text" field="email" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Email Confirmed
+                <!-- <p-columnFilter type="boolean" field="emailConfirmed" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Locked
+                <!-- <p-columnFilter type="boolean" field="lockedOut" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Enabled
+                <!-- <p-columnFilter type="boolean" field="enabled" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Created
+                <!-- <p-columnFilter type="text" field="created" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+            <th pResizableColumn>
+              <div>
+                Updated
+                <!-- <p-columnFilter type="text" field="updated" display="menu"></p-columnFilter> -->
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td></td>
+            <td>{{user.userName}}</td>
+            <td>{{getRolesAsString(user.roles)}}</td>
+            <td>{{user.email}}</td>
+            <td class="text-center">
+              <i class="pi"
+                 [ngClass]="{'true-icon pi-check-circle': user.emailConfirmed, 'false-icon pi-times-circle': !user.emailConfirmed}"></i>
+            </td>
+            <td class="text-center">
+              <i class="pi"
+                 [ngClass]="{'true-icon pi-check-circle': user.isLockedOut, 'false-icon pi-times-circle': !user.isLockedOut}"></i>
+            </td>
+            <td class="text-center">
+              <i class="pi" [ngClass]="{'true-icon pi-check-circle': user.isEnabled, 'false-icon pi-times-circle': !user.isEnabled}"></i>
+            </td>
+            <td>{{user.createDate | dateFormat}}</td>
+            <td>{{user.updateDate | dateFormat}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="paginator-container">
+      <p-paginator #paginator [rows]="tableHelper.defaultRecordsCountPerPage" (onPageChange)="getUsers($event)"
+                   [totalRecords]="tableHelper.totalRecordsCount" [rowsPerPageOptions]="tableHelper.predefinedRecordsCountPerPage"
+                   [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      </p-paginator>
+    </div>
+
+  </div>
+</div>

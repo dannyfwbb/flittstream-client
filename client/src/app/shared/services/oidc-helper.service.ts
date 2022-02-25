@@ -16,7 +16,7 @@ import { Utilities } from './utilities';
 export class OidcHelperService {
   private get baseUrl() { return this.configurations.baseUrl; }
   private clientId = 'flittstream_client';
-  private scope = 'openid email phone profile offline_access roles flittstream_api';
+  private scope = 'openid email profile offline_access roles flittstream_api';
 
   constructor(
     private http: HttpClient,

@@ -1,4 +1,4 @@
-import { Permission } from '../../shared/models/user/permission.model';
+import { Permission } from './permission.model';
 
 export class Role {
   constructor(name?: string, description?: string, permissions?: Permission[]) {

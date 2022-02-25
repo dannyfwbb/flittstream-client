@@ -1,14 +1,19 @@
-@import "~@angular/material/prebuilt-themes/purple-green.css";
 @import '../node_modules/ngx-toasta/styles/style-material.css';
 
+:root {
+  --primary-color: #1e90ff;
+}
+
 html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+  margin: 0;
 }
 
 .mat-menu-content {
-    padding: 0 !important;
+  padding: 0 !important;
+}
+
+.p-toolbar {
+  padding: 0 !important;
 }
 
 #toasta.toasta-position-top-right {
@@ -17,8 +22,28 @@ html, body {
 }
 
 #toasta .toast-text .toast-msg {
-  max-width: 1000px;
-  max-height: 800px;
   display: inline-block;
   overflow: auto;
+  max-width: 1000px;
+  max-height: 800px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

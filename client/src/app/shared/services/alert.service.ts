@@ -1,6 +1,6 @@
 import { HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastaConfig, ToastaService, ToastData, ToastOptions } from 'ngx-toasta';
+import { ToastaService, ToastData, ToastOptions } from 'ngx-toasta';
 import { Observable, Subject } from 'rxjs';
 import { Utilities } from '../services/utilities';
 
@@ -14,13 +14,8 @@ export class AlertService {
   private stickyToasties: number[] = [];
 
   constructor(
-    private toastaService: ToastaService,
-    private toastaConfig: ToastaConfig) {
-    this.toastaConfig.theme = 'material';
-    this.toastaConfig.position = 'top-right';
-    this.toastaConfig.limit = 100;
-    this.toastaConfig.showClose = true;
-    this.toastaConfig.showDuration = false;
+    private toastaService: ToastaService) {
+    //
   }
 
   showDialog(title: string, message: string): void;
