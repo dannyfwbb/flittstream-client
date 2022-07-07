@@ -3,10 +3,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, PLATFORM_ID, Provider } from '@angular/core';
 import { DefaultUrlSerializer, UrlSerializer, UrlTree } from '@angular/router';
 import { AppErrorHandler } from './app-error.handler';
+import { AuthGuard } from './shared/guards/auth.guard';
 import { ObjectSafe } from './shared/helpers/common';
 import { FSC_DOCUMENT, FSC_WINDOW } from './shared/injection-tokens';
 import { Utilities } from './shared/services/utilities';
-import { AuthGuard } from './_guards/auth.guard';
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
 import { NoCacheHeadersInterceptor } from './_interceptors/cache.interceptor';
 

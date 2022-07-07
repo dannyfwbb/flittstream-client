@@ -2,14 +2,12 @@ export class User {
   constructor(
     id?: string,
     userName?: string,
-    email?: string,
-    roles?: string[]
+    email?: string
   ) {
 
     this.id = id;
     this.userName = userName;
     this.email = email;
-    this.roles = roles;
   }
 
   get friendlyName(): string {
@@ -22,7 +20,6 @@ export class User {
   public emailConfirmed: boolean;
   public isEnabled: boolean;
   public isLockedOut: boolean;
-  public roles: string[];
   public createDate: Date;
   public updateDate: Date;
 }

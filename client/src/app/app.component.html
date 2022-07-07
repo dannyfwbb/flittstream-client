@@ -1,47 +1,14 @@
-<!--<div class="container">
-  <div class="app-content">
-    <div class="side-menu">
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>
+<div [busyIf]="!loaded" class="wrapper">
+  <ng-container *ngIf="loaded">
+    <div class="sidebar">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="content">
-      <router-outlet #mainOutlet="outlet"></router-outlet>
-    </div>
-  </div>
-</div>-->
-<div class="wrapper">
-  <div class="sidebar">
-    <app-sidebar></app-sidebar>
-  </div>
-  <div class="main-panel">
-      <div class="content">
-        <router-outlet #mainOutlet="outlet"></router-outlet>
-      </div>
-  </div>
-</div>
-
-<div [hidden]="mainOutlet.isActivated">
-  <div class="pre-bootstrap">
-    <div class="message">
-      <div class="message-block">
-        <span class="message-title"> FlittStream </span>
-      </div>
-      <div class="message-block">
-        <div class="cs-loader">
-          <label>&#9679;</label>
-          <label>&#9679;</label>
-          <label>&#9679;</label>
-          <label>&#9679;</label>
-          <label>&#9679;</label>
-          <label>&#9679;</label>
+    <div class="main-panel">
+        <div class="content">
+          <router-outlet #mainOutlet="outlet"></router-outlet>
         </div>
-      </div>
-      <div class="message-block">
-        <span class="message-text"> Loading </span>
-      </div>
     </div>
-  </div>
+  </ng-container>
 </div>
-
-<!--<router-outlet name="popup"></router-outlet>-->
-<!--<app-track-controls [isMobile]="isMobile" (uponOpened)="opened = !opened"></app-track-controls>-->
-<ngx-toasta></ngx-toasta>

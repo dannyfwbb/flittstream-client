@@ -127,14 +127,18 @@
     },
     "cSpell.words": [
       "appconfig",
+      "audiotrack",
       "confirmemail",
+      "confirmpopup",
       "datatable",
       "DBKEY",
+      "dynamicdialog",
       "Flitt",
       "flittstream",
       "haspassword",
       "hudochenkov",
       "inputtext",
+      "inputtextarea",
       "oidc",
       "primeflex",
       "primeicons",
@@ -143,6 +147,7 @@
       "sendconfirmemail",
       "sidenav",
       "stylelint",
+      "tabview",
       "Toasta",
       "userid"
     ]

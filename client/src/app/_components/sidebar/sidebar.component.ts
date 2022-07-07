@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs';
-import { LoginDialogComponent } from '../../core/components/login/login-dialog.component';
 import { BaseComponent } from '../../shared/bases/base.component';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  providers: [DialogService]
 })
 export class SidebarComponent extends BaseComponent {
   constructor(
-    private dialog: MatDialog,
+    public dialogService: DialogService,
     private authService: AuthService,
     public router: Router) {
     super();
@@ -24,8 +25,13 @@ export class SidebarComponent extends BaseComponent {
   }
 
   login(): void {
-    const dialogRef = this.dialog.open(LoginDialogComponent, { minWidth: 600 });
-    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe({
+    const ref = this.dialogService.open(LoginComponent, {
+      header: 'Login',
+      width: '30%',
+      height: '45%',
+    });
+
+    ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
       next: (_result) => {
         //
       },
@@ -38,5 +44,6 @@ export class SidebarComponent extends BaseComponent {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

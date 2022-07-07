@@ -13,6 +13,7 @@ export class PrimengTableHelper {
   resizableColumns = true;
   totalRecordsCount = 0;
   records: unknown[];
+  selected: unknown[];
   isLoading = false;
 
   showLoadingIndicator(): void {
@@ -69,6 +70,16 @@ export class PrimengTableHelper {
     return event.rows;
   }
 
+  getPage(paginator: Paginator): number {
+    const page = paginator.getPage();
+
+    if (!page) {
+      return 1;
+    }
+
+    return page + 1;
+  }
+
   getSkipCount(paginator: Paginator, event: LazyLoadEvent): number {
     if (paginator.first) {
       return paginator.first;
@@ -82,7 +93,7 @@ export class PrimengTableHelper {
   }
 
   shouldResetPaging(event: LazyLoadEvent): boolean {
-    if (!event /*|| event.sortField*/) { // if you want to reset after sorting, comment out parameter
+    if (!event) {
       return true;
     }
 

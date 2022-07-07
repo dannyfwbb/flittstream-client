@@ -1,0 +1,29 @@
+<div class="configuration">
+  <div class="header">
+    <fsc-page-header [title]="'Configuration' | uppercase"></fsc-page-header>
+  </div>
+  <div class="content" [busyIf]="false">
+    <p-tabView>
+      <p-tabPanel header="Users">
+        <div>
+          <h3>Users configuration</h3>
+          <div class="field-checkbox">
+            <p-checkbox [(ngModel)]="publicRegistration" [binary]="true" inputId="publicRegistration"></p-checkbox>
+            <label for="publicRegistration">Enable public registration for users</label>
+          </div>
+          <div class="field-checkbox">
+            <p-checkbox [(ngModel)]="enabledByDefault" [binary]="true" inputId="enabledByDefault"></p-checkbox>
+            <label for="enabledByDefault">New users enabled by default</label>
+          </div>
+          <div class="field-checkbox">
+            <p-checkbox [(ngModel)]="requireConfirmedEmail" [binary]="true" inputId="requireConfirmedEmail"></p-checkbox>
+            <label for="requireConfirmedEmail">Email confirmation required for users</label>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="SMTP">
+        Content 2
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

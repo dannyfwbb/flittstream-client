@@ -1,0 +1,20 @@
+<div class="artists">
+  <div class="header">
+    <fsc-page-header [title]="'Artists' | uppercase">
+      <ng-container content>
+        <div class="toolbar">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-4" (click)="addArtist()"></button>
+          <div class="flex">
+            <span class="p-input-icon-left mr-0">
+              <i class="pi pi-search"></i>
+              <input class="p-inputtext-sm" pInputText type="text" (input)="filter($event)" placeholder="Search keyword" />
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </fsc-page-header>
+  </div>
+  <div class="content">
+    <fsc-artist-preview [artistData]="artist" *ngFor="let artist of artists"></fsc-artist-preview>
+  </div>
+</div>

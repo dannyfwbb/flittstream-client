@@ -9,19 +9,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { appProviders } from './app.providers';
 import { SharedModule } from './shared/shared.module';
-import { FooterComponent } from './_components/footer/footer.component';
-import { NavbarComponent } from './_components/navbar/navbar.component';
+import { SharedPrimengModule } from './shared/submodule/primeng.module';
+import { LoginComponent } from './_components/login/login.component';
 import { SidebarComponent } from './_components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    NavbarComponent,
-    FooterComponent,
+    LoginComponent,
   ],
   imports: [
     SharedModule,
+    SharedPrimengModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

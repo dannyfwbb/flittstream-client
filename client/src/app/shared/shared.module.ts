@@ -27,18 +27,27 @@ import { RouterModule } from '@angular/router';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { RouterComponent } from './components/router/router.component';
 import { BusyIfDirective } from './directives/busy-if.directive';
+import { LazyLoadDirective } from './directives/lazy-load.directive';
+import { FormatArtworkUrlPipe } from './pipes/format-artwork-url.pipe';
 import { MomentDateTimePipe } from './pipes/moment-date-time.pipe';
-import { AlertService } from './services/alert.service';
+import { PermissionPipe } from './pipes/permission.pipe';
+import { PermissionAllPipe } from './pipes/permissionAll.pipe';
+import { PermissionAnyPipe } from './pipes/permissionAny.pipe';
 import { ConfigurationService } from './services/configuration.service';
 import { LocalStoreManager } from './services/local-store-manager.service';
 import { OidcHelperService } from './services/oidc-helper.service';
 
 const DIRECTIVES = [
   BusyIfDirective,
+  LazyLoadDirective,
 ]
 
 const PIPES = [
   MomentDateTimePipe,
+  PermissionPipe,
+  PermissionAllPipe,
+  PermissionAnyPipe,
+  FormatArtworkUrlPipe,
 ]
 
 const COMPONENTS = [
@@ -84,7 +93,6 @@ const MATERIAL_MODULES = [
   declarations: [COMPONENTS, DIRECTIVES, PIPES],
   exports: [COMPONENTS, MODULES, MATERIAL_MODULES, DIRECTIVES, PIPES],
   providers: [
-    AlertService,
     ConfigurationService,
     LocalStoreManager,
     OidcHelperService,

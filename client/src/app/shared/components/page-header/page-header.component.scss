@@ -1,31 +1,19 @@
 .page-header {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  background-color: transparent;
 
-  .container {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .page-description {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    .title {
-      margin-right: 15px;
-      color: var(--text-color);
-      font-size: 30px;
-    }
+  .title {
+    margin-right: 15px;
+    color: var(--text-color);
+    font-size: 30px;
+    line-height: 42px;
   }
 
   .content {
-    display: flex;
-    align-items: center;
+    height: 42px;
   }
 }

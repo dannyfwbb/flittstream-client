@@ -1,14 +1,16 @@
 export type PermissionNames =
-    'View Users' | 'Manage Users' |
+    'View Users' | 'Create Users' | 'Edit Users' | 'Delete Users' |
     'View Roles' | 'Manage Roles' | 'Assign Roles';
 
 export type PermissionValues =
-    'users.view' | 'users.manage' |
+    'users.view' | 'users.create' | 'users.edit' | 'users.delete' |
     'roles.view' | 'roles.manage' | 'roles.assign';
 
 export class Permission {
   public static readonly viewUsersPermission: PermissionValues = 'users.view';
-  public static readonly manageUsersPermission: PermissionValues = 'users.manage';
+  public static readonly createUsersPermission: PermissionValues = 'users.create';
+  public static readonly editUsersPermission: PermissionValues = 'users.edit';
+  public static readonly deleteUsersPermission: PermissionValues = 'users.delete';
 
   public static readonly viewRolesPermission: PermissionValues = 'roles.view';
   public static readonly manageRolesPermission: PermissionValues = 'roles.manage';

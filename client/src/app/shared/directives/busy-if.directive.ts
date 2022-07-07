@@ -31,7 +31,7 @@ export class BusyIfDirective implements OnChanges {
       } else {
         this.ngxSpinnerService.hide(this.spinnerName);
       }
-    }, 1000);
+    }, 5);
   }
 
   loadComponent() {

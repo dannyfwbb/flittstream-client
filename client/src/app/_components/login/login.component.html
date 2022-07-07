@@ -1,0 +1,35 @@
+<div class="login">
+  <div class="content">
+    <form #form="ngForm" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+      <div class="field">
+        <span class="p-float-label">
+          <input formControlName="username" [style]="{'width': '100%'}" id="username" type="text" pInputText autofocus>
+          <label for="float-input">Username</label>
+        </span>
+      </div>
+      <div class="field">
+        <span class="p-float-label">
+          <p-password [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}" formControlName="password" inputId="password"
+                      [toggleMask]="false" [feedback]="false"></p-password>
+          <label for="float-input">Password</label>
+        </span>
+      </div>
+      <div class="field">
+        <div class="field-checkbox">
+          <p-checkbox formControlName="rememberMe" [binary]="true" inputId="binary"></p-checkbox>
+          <label for="binary">Remember me</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <button pButton pRipple [disabled]="true" label="{{'Register' | uppercase}}" class="p-button-text"></button>
+      <button pButton pRipple [disabled]="true" label="{{'Forgot password' | uppercase}}" class="p-button-text"></button>
+    </div>
+    <div class="right">
+      <p-button label="{{'Login' | uppercase}}" [loading]="loading" [disabled]="!valid" class="p-button-text" (onClick)="login()"></p-button>
+    </div>
+  </div>
+</div>

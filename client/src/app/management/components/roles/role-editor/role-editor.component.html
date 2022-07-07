@@ -1,3 +1,29 @@
-<p>
-  role-editor works!
-</p>
+<div class="role-editor" [busyIf]="loading">
+  <div class="content px-2">
+    <form #form="ngForm" [formGroup]="roleForm" (ngSubmit)="save()" novalidate autocomplete="off">
+      <h2>Role Information</h2>
+      <div class="field">
+        <span class="p-float-label">
+          <input formControlName="name" [style]="{'width': '100%'}" id="name" type="text" pInputText autofocus>
+          <label for="name">Name</label>
+        </span>
+      </div>
+      <div class="field">
+        <span class="p-float-label">
+          <textarea formControlName="description" [style]="{'width': '100%'}" id="description" pInputTextarea [autoResize]="true"></textarea>
+          <label for="description">Description</label>
+        </span>
+      </div>
+      <h2>Permissions</h2>
+      <div class="field">
+        <p-tree styleClass="p-0" [value]="permissionsTree" selectionMode="checkbox" [(selection)]="selectedPermissions"
+                [emptyMessage]="'No permissions found'" (onNodeSelect)="nodeAction()" (onNodeUnselect)="nodeAction()"></p-tree>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">
+    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" [disabled]="isNewRole" (click)="delete($event)"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" [disabled]="!canSave" (click)="save()"></button>
+  </div>
+</div>

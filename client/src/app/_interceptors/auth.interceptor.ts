@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { catchError, filter, mergeMap, switchMap, take } from 'rxjs/operators';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshingLogin: boolean;
@@ -20,7 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
       if (error instanceof HttpErrorResponse && !authReq.url.includes('connect/token') && error.status === 401) {
         return this.handle401Error(authReq, next);
       }
-      return throwError(() => new Error(error));
+
+      return throwError(() => error);
     }));
   }
 
@@ -38,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((refreshLoginError) => {
           this.isRefreshingLogin = false;
-          //this.authService.logout();
+          this.authService.logout();
 
           if (refreshLoginError.status == 401 || (refreshLoginError.error && refreshLoginError.error.error == 'invalid_grant')) {
             return throwError(() => new Error('session expired'));

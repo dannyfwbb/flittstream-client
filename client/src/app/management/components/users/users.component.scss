@@ -2,13 +2,12 @@
   height: 100vh;
 
   .header {
-    padding: 32px 0 0;
+    //
   }
 
   .table {
     height: calc(100vh - 120px);
-    margin-top: 25px;
-    margin-bottom: 2rem;
+    margin: 0 25px;
     padding: 0 25px 25px;
     border-radius: 4px;
     background: var(--surface-a);
@@ -16,10 +15,11 @@
 
     .paginator-container {
       padding-top: 15px;
-    }
 
-    td, th {
-      flex-basis: 15%
+      .paginator {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
   }
 }
