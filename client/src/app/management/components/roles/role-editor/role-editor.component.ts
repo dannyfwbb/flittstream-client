@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, of as just, takeUntil } from 'rxjs';
@@ -23,7 +23,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
   constructor(
     private config: DynamicDialogConfig,
     private service: AccountService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
@@ -31,7 +31,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     this.buildForm();
   }
 
-  roleForm: FormGroup;
+  roleForm: UntypedFormGroup;
   loading = true;
   permissionsChanged = false;
 

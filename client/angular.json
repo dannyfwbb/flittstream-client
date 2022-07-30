@@ -140,6 +140,5 @@
         }
       }
     }
-  },
-  "defaultProject": "flittstream-client"
+  }
 }

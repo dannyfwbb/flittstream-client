@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize, takeUntil } from 'rxjs';
@@ -18,14 +18,14 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private messageService: MessageService,
     private ref: DynamicDialogRef) {
     super();
     this.buildForm();
   }
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   loading: boolean;
 
   ngOnInit(): void {

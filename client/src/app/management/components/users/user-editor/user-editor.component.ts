@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, of as just, Subscription, takeUntil } from 'rxjs';
@@ -25,7 +25,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
   constructor(
     private config: DynamicDialogConfig,
     private service: AccountService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
@@ -36,7 +36,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
   roles: RoleContext[] = [];
   user = new UserContext();
 
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   loading = true;
   isChangePassword = false;
 
