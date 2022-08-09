@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, of as just, Subscription, takeUntil } from 'rxjs';
@@ -14,6 +14,22 @@ import { UserCreateContext } from '../../../models/users/user-create-context.mod
 import { UserEditContext } from '../../../models/users/user-edit-context.model';
 import { AccountService } from '../../../services/account.service';
 
+interface PasswordForm {
+  currentPassword: FormControl<string>;
+  newPassword: FormControl<string>;
+  confirmPassword: FormControl<string>;
+}
+
+interface UserForm {
+  username: FormControl<string>;
+  email: FormControl<string>;
+  password: FormGroup<PasswordForm>;
+  roles: FormControl<RoleContext[]>;
+  enabled: FormControl<boolean>;
+  sendInvite: FormControl<boolean>;
+  locked: FormControl<boolean>;
+}
+
 @Component({
   selector: 'fsc-user-editor',
   templateUrl: './user-editor.component.html',
@@ -25,7 +41,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
   constructor(
     private config: DynamicDialogConfig,
     private service: AccountService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
@@ -36,7 +52,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
   roles: RoleContext[] = [];
   user = new UserContext();
 
-  userForm: UntypedFormGroup;
+  userForm: FormGroup<UserForm>;
   loading = true;
   isChangePassword = false;
 
@@ -76,17 +92,17 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
 
   buildForm(): void {
     this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
+      username: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       password: this.formBuilder.group({
-        currentPassword: ['', Validators.required],
-        newPassword: ['', [Validators.required]],
-        confirmPassword: ['', [Validators.required, EqualValidator('newPassword')]],
+        currentPassword: new FormControl('', Validators.required),
+        newPassword: new FormControl('', Validators.required),
+        confirmPassword: new FormControl('', [Validators.required, EqualValidator('newPassword')]),
       }),
-      roles: [[], Validators.required],
-      enabled: true,
-      sendInvite: false,
-      locked: false,
+      roles: new FormControl([], Validators.required),
+      enabled: new FormControl(true),
+      sendInvite: new FormControl(false),
+      locked: new FormControl(false),
     });
 
     if (this.isNewUser) {
@@ -180,11 +196,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    if (this.isNewUser) {
-      this.saveNew();
-    } else {
-      this.saveEdited();
-    }
+    this.isNewUser ? this.saveNew() : this.saveEdited();
   }
 
   saveNew(): void {

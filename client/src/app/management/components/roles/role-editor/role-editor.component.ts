@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, of as just, takeUntil } from 'rxjs';
@@ -12,6 +12,11 @@ import { RoleCreateContext } from '../../../models/roles/role-create-context.mod
 import { RoleEditContext } from '../../../models/roles/role-edit-context.model';
 import { AccountService } from '../../../services/account.service';
 
+interface RoleForm {
+  name: FormControl<string>;
+  description: FormControl<string>;
+}
+
 @Component({
   selector: 'fsc-role-editor',
   templateUrl: './role-editor.component.html',
@@ -23,7 +28,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
   constructor(
     private config: DynamicDialogConfig,
     private service: AccountService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
@@ -31,7 +36,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     this.buildForm();
   }
 
-  roleForm: UntypedFormGroup;
+  roleForm: FormGroup<RoleForm>;
   loading = true;
   permissionsChanged = false;
 
@@ -43,18 +48,10 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     this.loadData();
   }
 
-  get name() {
-    return this.roleForm.get('name');
-  }
-
-  get description() {
-    return this.roleForm.get('description');
-  }
-
   buildForm(): void {
     this.roleForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: '',
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
     });
   }
 
@@ -96,11 +93,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    if (this.isNewRole) {
-      this.saveNew();
-    } else {
-      this.saveEdited();
-    }
+    this.isNewRole ? this.saveNew() : this.saveEdited();
   }
 
   saveNew(): void {
@@ -109,7 +102,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     const role = {
       name: value.name,
       description: value.description,
-      permissions: this.selectedPermissions.map((permission) => permission.data),
+      permissions: this.selectedPermissions.filter((permission) => permission.leaf).map((permission) => permission.data),
     } as RoleCreateContext;
 
     this.service.createNewRole(role)
