@@ -13,7 +13,7 @@ export abstract class BaseComponent implements OnDestroy {
   }
 
   protected emitDestroySubject(): void {
-    if (!this.destroySubject$.isStopped) {
+    if (!this.destroySubject$.closed) {
       this.destroySubject$.next();
       this.destroySubject$.complete();
     }
