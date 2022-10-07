@@ -39,22 +39,22 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
   @ViewChild('form', { static: true }) private form: NgForm;
 
   constructor(
-    private config: DynamicDialogConfig,
-    private service: AccountService,
-    private formBuilder: FormBuilder,
-    private ref: DynamicDialogRef,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private readonly config: DynamicDialogConfig,
+    private readonly service: AccountService,
+    private readonly formBuilder: FormBuilder,
+    private readonly ref: DynamicDialogRef,
+    private readonly messageService: MessageService,
+    private readonly confirmationService: ConfirmationService) {
     super();
     this.buildForm();
   }
 
-  roles: RoleContext[] = [];
-  user = new UserContext();
+  public roles: RoleContext[] = [];
+  public user = new UserContext();
 
-  userForm: FormGroup<UserForm>;
-  loading = true;
-  isChangePassword = false;
+  public userForm: FormGroup<UserForm>;
+  public loading = true;
+  public isChangePassword = false;
 
   private passwordWatcher: Subscription;
 
@@ -62,35 +62,35 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
     this.loadData();
   }
 
-  get username() {
+  public get username() {
     return this.userForm.get('username');
   }
 
-  get email() {
+  public get email() {
     return this.userForm.get('email');
   }
 
-  get locked() {
+  public get locked() {
     return this.userForm.get('locked');
   }
 
-  get password() {
+  public get password() {
     return this.userForm.get('password');
   }
 
-  get currentPassword() {
+  public get currentPassword() {
     return this.password.get('currentPassword');
   }
 
-  get newPassword() {
+  public get newPassword() {
     return this.password.get('newPassword');
   }
 
-  get confirmPassword() {
+  public get confirmPassword() {
     return this.password.get('confirmPassword');
   }
 
-  buildForm(): void {
+  private buildForm(): void {
     this.userForm = this.formBuilder.group({
       username: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
@@ -121,7 +121,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
       .subscribe(() => this.confirmPassword.updateValueAndValidity());
   }
 
-  loadData(): void {
+  private loadData(): void {
     const rolesRequest$ = this.service.getRoles();
     const request$ = forkJoin([rolesRequest$, this.isNewUser ? just(null) : this.service.getUser(this.config.data.id)]);
 
@@ -151,23 +151,23 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
     });
   }
 
-  get isNewUser(): boolean {
+  public get isNewUser(): boolean {
     return this.config.data?.id ? false : true;
   }
 
-  get canSave(): boolean {
+  public get canSave(): boolean {
     return this.userForm.valid && this.userForm.dirty;
   }
 
-  get confirmedEmailChanged() {
+  public get confirmedEmailChanged() {
     return this.user.emailConfirmed && this.email.value != this.user.email;
   }
 
-  get usernameChanged() {
+  public get usernameChanged() {
     return this.username.value != this.user.userName;
   }
 
-  get isEditingSelf() {
+  public get isEditingSelf() {
     return this.service.currentUser ? this.user.id === this.service.currentUser : false;
   }
 
@@ -188,7 +188,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
     this.confirmPassword.setValidators([Validators.required, EqualValidator('newPassword')]);
   }
 
-  save(): void {
+  public save(): void {
     this.loading = true;
 
     if (!this.form.submitted) {
@@ -199,7 +199,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
     this.isNewUser ? this.saveNew() : this.saveEdited();
   }
 
-  saveNew(): void {
+  private saveNew(): void {
     const value = this.userForm.value;
 
     const user = {
@@ -227,7 +227,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
       });
   }
 
-  saveEdited(): void {
+  private saveEdited(): void {
     const value = this.userForm.value;
 
     const user = {
@@ -258,7 +258,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
       });
   }
 
-  delete(event: Event): void {
+  public delete(event: Event): void {
     this.confirmationService.confirm({
       target: event.target,
       message: `Are you sure that you want to delete user ${this.user.userName}?`,
