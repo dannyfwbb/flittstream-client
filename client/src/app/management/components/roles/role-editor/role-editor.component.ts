@@ -26,12 +26,12 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
   @ViewChild('form', { static: true }) private form: NgForm;
 
   constructor(
-    private config: DynamicDialogConfig,
-    private service: AccountService,
-    private formBuilder: FormBuilder,
-    private ref: DynamicDialogRef,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private readonly config: DynamicDialogConfig,
+    private readonly service: AccountService,
+    private readonly formBuilder: FormBuilder,
+    private readonly ref: DynamicDialogRef,
+    private readonly messageService: MessageService,
+    private readonly confirmationService: ConfirmationService) {
     super();
     this.buildForm();
   }
@@ -44,18 +44,18 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
   permissionsTree: TreeNode[];
   selectedPermissions: TreeNode[] = [];
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadData();
   }
 
-  buildForm(): void {
+  private buildForm(): void {
     this.roleForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       description: new FormControl(''),
     });
   }
 
-  loadData(): void {
+  private loadData(): void {
     const permissionsRequest$ = this.service.getPermissions();
     const request$ = forkJoin([permissionsRequest$, this.isNewRole ? just(null) : this.service.getRole(this.config.data.id)]);
 
@@ -77,15 +77,15 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     });
   }
 
-  get isNewRole(): boolean {
+  public get isNewRole(): boolean {
     return this.config.data?.id ? false : true;
   }
 
-  get canSave(): boolean {
+  public get canSave(): boolean {
     return (this.roleForm.valid && this.roleForm.dirty) || this.permissionsChanged;
   }
 
-  save(): void {
+  public save(): void {
     this.loading = true;
 
     if (!this.form.submitted) {
@@ -96,7 +96,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     this.isNewRole ? this.saveNew() : this.saveEdited();
   }
 
-  saveNew(): void {
+  private saveNew(): void {
     const value = this.roleForm.value;
 
     const role = {
@@ -121,7 +121,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
       });
   }
 
-  saveEdited(): void {
+  private saveEdited(): void {
     const value = this.roleForm.value;
 
     const role = {
@@ -147,7 +147,7 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
       });
   }
 
-  delete(event: Event): void {
+  public delete(event: Event): void {
     this.confirmationService.confirm({
       target: event.target,
       message: `Are you sure that you want to delete role ${this.role.name}?`,
@@ -190,11 +190,11 @@ export class RoleEditorComponent extends BaseComponent implements OnInit {
     return result;
   }
 
-  nodeAction() {
+  public nodeAction() {
     this.permissionsChanged = true;
   }
 
-  checkNode(nodes:TreeNode[], str:string[]) {
+  private checkNode(nodes:TreeNode[], str:string[]) {
     for(let i=0 ; i < nodes.length ; i++) {
       if(!nodes[i].leaf && nodes[i].children[0].leaf) {
         for(let j=0 ; j < nodes[i].children.length ; j++) {
