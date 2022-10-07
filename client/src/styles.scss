@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+}
+
+.mat-menu-content {
+  padding: 0 !important;
+}
+
+.p-toolbar {
+  padding: 0 !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  margin: 0 0.5rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

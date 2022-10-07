@@ -1,0 +1,44 @@
+.sidebar-container {
+  overflow-y: auto;
+  width: 220px;
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+
+  .logo {
+    margin: 20px 0 20px 20px;
+  }
+
+  .authorize-button {
+    width: 90%;
+    margin-top: 10px;
+    margin-left: 5%;
+    background-color: #1e3264;
+  }
+
+  .mat-icon {
+    margin-right: 10px;
+  }
+
+  .active-link {
+    color: #69f0ae;
+  }
+
+  .authorize-button-container {
+    width: 100%;
+    height: 56px;
+  }
+
+  .disabled {
+    color: rgb(255 255 255 / 0.3);
+    cursor: default;
+
+    &:hover {
+      background: none;
+      pointer-events: none;
+    }
+
+    &:focus {
+      background: none;
+    }
+  }
+}

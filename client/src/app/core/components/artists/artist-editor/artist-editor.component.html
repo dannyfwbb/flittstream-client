@@ -1,0 +1,29 @@
+<div class="artist-editor" [busyIf]="loading">
+  <div class="content px-2">
+    <p-tabView>
+      <p-tabPanel header="Information">
+        <div>
+          <form #form="ngForm" [formGroup]="artistForm" (ngSubmit)="save()" novalidate autocomplete="off">
+            <div class="field">
+              <span class="p-float-label">
+                <input formControlName="name" [style]="{'width': '100%'}" id="name" type="text" pInputText autofocus>
+                <label for="name">Name</label>
+              </span>
+            </div>
+            <div class="field">
+              <span class="p-float-label">
+                <textarea formControlName="description" [style]="{'width': '100%'}" id="description" pInputTextarea [autoResize]="true"></textarea>
+                <label for="description">Description</label>
+              </span>
+            </div>
+          </form>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Artwork">
+        <div>
+          <h3>Users configuration</h3>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

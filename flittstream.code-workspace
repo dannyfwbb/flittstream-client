@@ -1,0 +1,192 @@
+// cspell: disable
+{
+  "folders": [
+    {
+      "name": "client",
+      "path": "client"
+    },
+    {
+      "name": "root",
+      "path": ".",
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "stylelint.vscode-stylelint",
+      "esbenp.prettier-vscode",
+      "angular.ng-template",
+      "alexiv.vscode-angular2-files",
+      "eamodio.gitlens",
+      "mbinic.tgit-cmds",
+      "streetsidesoftware.code-spell-checker",
+      "gruntfuggly.todo-tree",
+      "orta.vscode-jest"
+    ],
+    "unwantedRecommendations": [
+      "kavod-io.vscode-jest-test-adapter",
+      "ms-vscode.vscode-typescript-tslint-plugin"
+    ]
+  },
+  "settings": {
+    "editor.tabCompletion": "on",
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "editor.renderWhitespace": "all",
+    "editor.rulers": [
+      {
+        "column": 140, // same as formatter max column setting
+        "color": "#88ffa2d8"
+      }
+    ],
+    "files.trimTrailingWhitespace": true,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "angular2-files.menu.class": false,
+    "angular2-files.menu.enum": false,
+    "angular2-files.menu.interface": false,
+    // typescript
+    "[typescript]": {
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+        // "source.fixAll.eslint": true,
+      },
+    },
+    "typescript.preferences.importModuleSpecifier": "project-relative",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.validate.enable": true,
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.format.semicolons": "insert",
+    "typescript.tsdk": "client/node_modules/typescript/lib",
+    // javascript
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "javascript.preferences.quoteStyle": "single",
+    "javascript.validate.enable": true,
+    // html
+    "html.format.endWithNewline": true,
+    "html.format.wrapAttributes": "preserve-aligned",
+    "html.format.wrapLineLength": 140,
+    // styles
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.validate": [
+      "css",
+      "scss"
+    ],
+    // eslint
+    "eslint.lintTask.enable": true,
+    "eslint.run": "onSave",
+    "eslint.probe": [
+      "javascript",
+      "typescript",
+      "html"
+    ],
+    "eslint.options": {
+      "extensions": [
+        ".js",
+        ".ts",
+        ".html",
+      ]
+    },
+    "eslint.codeActionsOnSave.mode": "problems",
+    // todo-tree
+    "todo-tree.highlights.enabled": true,
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.general.tagGroups": {
+      "FIXME": [
+        "FIXME",
+        "FIXIT",
+        "FIX",
+      ],
+    },
+    // jest
+    "jest.disabledWorkspaceFolders": [
+      "root",
+    ],
+    "jest.autoRun": {
+      "watch": true,
+    },
+    "jest.showCoverageOnLoad": false,
+    "jest.enableCodeLens": true,
+    "jest.coverageFormatter": "DefaultFormatter",
+    "jest.jestCommandLine": "npm run test-vscode -- ",
+    // other
+    "cSpell.workspaceRootPath": "${workspaceFolder:client}",
+    "npm.validate.enable": false,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "client/": true,
+      "identity/": true
+    },
+    "cSpell.words": [
+      "appconfig",
+      "audiotrack",
+      "confirmemail",
+      "confirmpopup",
+      "datatable",
+      "DBKEY",
+      "dynamicdialog",
+      "Flitt",
+      "flittstream",
+      "haspassword",
+      "hudochenkov",
+      "inputtext",
+      "inputtextarea",
+      "oidc",
+      "primeflex",
+      "primeicons",
+      "primeng",
+      "recoverpassword",
+      "sendconfirmemail",
+      "sidenav",
+      "stylelint",
+      "tabview",
+      "Toasta",
+      "userid"
+    ]
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "Launch Chrome",
+        "type": "pwa-chrome",
+        "request": "launch",
+        "url": "https://localhost:4200/",
+        "webRoot": "${workspaceFolder:client}"
+      },
+      {
+        "name": "Launch Firefox",
+        "type": "firefox",
+        "request": "launch",
+        "reAttach": true,
+        "url": "https://localhost:4200/",
+        "webRoot": "${workspaceFolder:client}"
+      },
+      {
+        "type": "node",
+        "name": "vscode-jest-tests",
+        "request": "launch",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "npm",
+        "args": [
+          "run",
+          "test-vscode",
+          "--",
+          "--run-in-band",
+          "--watch-all=false"
+        ]
+      }
+    ],
+    "compounds": []
+  },
+}

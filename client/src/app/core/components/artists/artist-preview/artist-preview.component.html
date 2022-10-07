@@ -1,0 +1,18 @@
+<div class="artist-preview">
+  <div [routerLink]="['/artists', artistData.id]"
+       class="artist-cover-container mat-elevation-z24">
+    <img class="artist-cover" appLazyLoad [src]="artistData?.artwork?.url | formatArtworkUrl:170" alt="artist-art">
+  </div>
+  <div class="text-outer-container">
+    <div class="artist-text">
+      <div class="artist-name-container">
+        <span class="artist-name"
+              title="{{artistData.name}}"
+              [routerLink]="['/artists', artistData.id]">
+          {{artistData.name}}
+        </span>
+        <mat-icon *ngIf="artistData.contentRating==='explicit'" class="explicit">explicit</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

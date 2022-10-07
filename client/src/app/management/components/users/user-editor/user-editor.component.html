@@ -1,0 +1,70 @@
+<div class="user-editor" [busyIf]="loading">
+  <div class="content px-2">
+    <form #form="ngForm" [formGroup]="userForm" (ngSubmit)="save()" novalidate autocomplete="off">
+      <h2>User Information</h2>
+      <div class="field">
+        <span class="p-float-label">
+          <input formControlName="username" [style]="{'width': '100%'}" id="username" type="text" pInputText autofocus>
+          <label for="float-input">Username</label>
+        </span>
+      </div>
+      <div class="field">
+        <span class="p-float-label">
+          <input formControlName="email" [style]="{'width': '100%'}" id="email" type="text" pInputText>
+          <label for="float-input">Email</label>
+        </span>
+      </div>
+      <div class="field" *ngIf="!(isChangePassword || isNewUser)" (click)="changePassword()">
+        <button pButton pRipple type="button" label="Change password" class="p-button-info p-button-text"></button>
+      </div>
+      <div formGroupName="password" *ngIf="isChangePassword || isNewUser">
+        <div class="field" *ngIf="!isNewUser && isEditingSelf">
+          <span class="p-float-label">
+            <p-password formControlName="currentPassword" [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"
+                        inputId="currentPassword" [toggleMask]="false" [feedback]="false"></p-password>
+            <label for="float-input">Current password</label>
+          </span>
+        </div>
+        <div class="field">
+          <span class="p-float-label">
+            <p-password formControlName="newPassword" [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"
+                        inputId="newPassword" [toggleMask]="false" [feedback]="true"></p-password>
+            <label for="float-input">New password</label>
+          </span>
+        </div>
+        <div class="field">
+          <span class="p-float-label">
+            <p-password formControlName="confirmPassword" [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"
+                        inputId="confirmPassword" [toggleMask]="false" [feedback]="false"></p-password>
+            <label for="float-input">Confirm password</label>
+          </span>
+        </div>
+      </div>
+      <h2>Roles</h2>
+      <div class="field">
+        <p-multiSelect formControlName="roles" [style]="{'width': '100%'}" [filter]="false" [options]="roles"
+                       defaultLabel="Select roles" optionLabel="name" display="chip">
+        </p-multiSelect>
+      </div>
+      <h2>Configuration</h2>
+      <div class="field-checkbox">
+        <p-checkbox formControlName="enabled" [binary]="true" inputId="enabled"></p-checkbox>
+        <label for="enabled">Enabled</label>
+      </div>
+      <div *ngIf="isNewUser" class="field-checkbox">
+        <p-checkbox formControlName="sendInvite" [binary]="true" inputId="sendInvite"></p-checkbox>
+        <label for="sendInvite">Send invite email</label>
+      </div>
+      <div *ngIf="locked.value" class="field-checkbox">
+        <p-checkbox formControlName="locked" [binary]="true" inputId="locked"></p-checkbox>
+        <label for="locked">Locked</label>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">
+    <button *ngIf="'users.delete' | permission" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+            [disabled]="isNewUser" (click)="delete($event)"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" [disabled]="!canSave" (click)="save()"></button>
+  </div>
+</div>
